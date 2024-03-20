@@ -1,3 +1,4 @@
+import { formatValue } from "@/utils/format-price";
 import { styled } from "styled-components"
 
 interface ProductCardProps {
@@ -22,6 +23,7 @@ const Card = styled.div`
     img {
         width: 256px;
         height: 300px;
+        border-radius: 3px;
     }
 
     h3 {
@@ -29,6 +31,7 @@ const Card = styled.div`
         font-size: 16px;
         line-height: 150%;
         color: var(--text-dark-2);
+        text-align: center;
     }
 
     p {
@@ -59,7 +62,8 @@ const Card = styled.div`
 `
 
 export function ProductCard(props : ProductCardProps){
-    
+
+    const price = formatValue(props.price);
 
     return(
         <Card>
@@ -67,7 +71,7 @@ export function ProductCard(props : ProductCardProps){
             <div>
                 <h3>{props.title}</h3>
                 <div></div>
-                <p>{props.price}</p>
+                <p>{price}</p>
             </div>
         </Card>
     )
