@@ -4,28 +4,37 @@ import { InputHTMLAttributes } from "react";
 import { useFilter } from "@/hooks/useFilter";
 
 export const PrimaryInput = styled.input`
-    width: 352px;
+    width: 100%;
     border-radius: 8px;
     border: none;
     padding: 10px 16px;
     background-color: var(--bg-secondary);
     font-family: inherit; //vai erdar do mais proximo
     font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
+    font-size: 12px;
+    line-height: 20px;
     color: var(--text-dark);
+
+    @media (min-width: ${props => props.theme.desktopBreakpoint}) {
+        font-size: 14px;
+        line-height: 22px;
+    }
 `;
 
 // div -> input e icons
 const InputContainer = styled.div`
     position: relative;
-    width: 352px;
+    width: 250px;
 
     svg {
         position: absolute;
         right: 20px;
         top: 20%;
         transform: translate(-50%);
+    }
+
+    @media (min-width: 768px) {
+        width: 352px;
     }
 `;
 
