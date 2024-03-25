@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Saira } from "next/font/google";
 import "./globals.css";
 import { Header } from "../components/header";
-import { FilterContextProvider } from "@/context/filter-context";
-import { DefaultProviders } from "@/components/default-providers";
+import { DefaultProviders } from "@/components/layout/default-providers";
 
 const saira = Saira({ 
   weight: ['300', '400', '500', '600'],
