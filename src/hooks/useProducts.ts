@@ -22,7 +22,8 @@ export function useProduct(id: string) {
     const { data } = useQuery({
         queryFn: () => fetcher(id),
         queryKey: ['product', id],
-        enabled: !!id // => quando o id tiver um valor dentro dele, vai ficar true e ira buscar os dados
+        enabled: !!id, // => quando o id tiver um valor dentro dele, vai ficar true e ira buscar os dados
+        staleTime:  1000 * 60 * 5, // para disparr a requisição controlada, tempo q essa informação é valida e quando estorar o tempo , ele vai buscar novas informaç~poes no servidor
     });
 
     return {
