@@ -7,7 +7,7 @@ export const DefaultPageLayout = styled.div`
     min-height: 100vh;
     background-color: var(--bg-primary);
 
-    @media (min-width: ${props => props.theme.desktopBreakpoints}) {
+    @media(min-width: ${props => props.theme.desktopBreakpoint}){
         padding: 34px 160px;
     }
-`;
+`
