@@ -5,6 +5,7 @@ import { BackButton } from "@/components/layout/back-button";
 import { DefaultPageLayout } from "@/components/layout/default-page-layout";
 import { useProduct } from "@/hooks/useProducts";
 import { formatValue } from "@/utils/format-price";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 const Container =  styled.div`
@@ -107,10 +108,12 @@ const ProductInfo = styled.div`
 
 export default function Product({ searchParams }: { searchParams: { id: string }}) {
     const { data } = useProduct(searchParams.id);
-
+    const router = useRouter();
     console.log(data);
 
     const handleAddToCart = () => {
+        router.push("/cart")
+
         let cartItems = localStorage.getItem('cart-items')
         if (cartItems) {
             let cartItemsArray = JSON.parse(cartItems);
