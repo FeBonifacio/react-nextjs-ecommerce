@@ -36,6 +36,7 @@ const Logo = styled.a`
     font-weight: 400;
     font-size: 24px;
     line-height: 150%;
+    text-decoration: none;
 
     @media (min-width: ${props => props.theme.desktopBreakpoint}) {
         font-size: 30px;
@@ -48,7 +49,7 @@ export function Header() {
 
     return(
         <TagHeader>
-            <Logo className={sairaStencilOne.className}>
+            <Logo className={sairaStencilOne.className} href="/">
                 Ecommerce
             </Logo>
             <div>

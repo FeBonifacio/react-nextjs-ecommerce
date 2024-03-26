@@ -1,5 +1,6 @@
 "use client"
 import { CartItem } from "@/components/cart/cart-item";
+import { Divider } from "@/components/icons/divider";
 import { BackButton } from "@/components/layout/back-button";
 import { DefaultPageLayout } from "@/components/layout/default-page-layout"
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -12,6 +13,10 @@ const Container = styled.div`
     justify-content: center;
     flex-direction: column;
     gap: 32px;
+
+    @media (min-width: ${props => props.theme.desktopBreakpoint}) {
+        flex-direction: row;
+    }
 `;
 
 const CartListContainer = styled.div`
@@ -44,6 +49,50 @@ const CartList = styled.ul`
     margin-top: 24px;
 `;
 
+const CartResultContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 352px;
+    padding: 16px 24px;
+
+    background: white;
+    
+
+    h3 {
+        font-weight: 600;
+        font-size: 20px;
+        color: var(--text-dark-2);
+        text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+`;
+
+const TotalItem = styled.div<{ isBold: boolean }>`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    font-weight: ${ props => props.isBold ? '600' : '400' };
+    font-size: 16px;
+    line-height: 150%;
+
+    margin-bottom: 12px;
+`;
+
+const ShopButton = styled.button`
+    color: white;
+    border-radius: 4px;
+    background: #51B853;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    margin-top: 40px;
+    cursor: pointer;
+`;
+
 export default function CartPage() {
 
     const { value, updateLocalStorage } = useLocalStorage<ProductInCart[]>("cart-items", []);
@@ -53,6 +102,8 @@ export default function CartPage() {
     }
 
     const cartTotal = formatValue(calculateTotal(value));
+    const deliveryFee = 4000;
+    const cartTotalWithDelivery = formatValue(calculateTotal(value) + deliveryFee);
 
     const handleUpdateQuantity = (id: string, quantity: number) => {
         const newValue = value.map(item => {
@@ -73,8 +124,8 @@ export default function CartPage() {
     return (
         <DefaultPageLayout>
             <Container>
-                <BackButton navigate="/"/>
                 <CartListContainer>
+                <BackButton navigate="/"/>
                     <h3>Seu carrinho</h3>
                     <p> Total {value.length} produtos <span>{cartTotal}</span></p>
                     <CartList>
@@ -87,6 +138,24 @@ export default function CartPage() {
                         />)}
                     </CartList>
                 </CartListContainer>
+
+                <CartResultContainer>
+                    <h3>Resumo do Pedido</h3>
+                    <TotalItem isBold={false}>
+                        <p>Subtotal de Produtos</p>
+                        <p>{cartTotal}</p>
+                    </TotalItem>
+                    <TotalItem isBold={false}>
+                        <p>Entrega</p>
+                        <p>{formatValue(deliveryFee)}</p>
+                    </TotalItem>
+                    <Divider />
+                    <TotalItem isBold={true}>
+                        <p>Total</p>
+                        <p>{cartTotalWithDelivery}</p>
+                    </TotalItem>
+                    <ShopButton>FINALIZAR COMPRA</ShopButton>
+                </CartResultContainer>
             </Container>
         </DefaultPageLayout>
     )
